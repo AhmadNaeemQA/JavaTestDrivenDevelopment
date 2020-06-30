@@ -30,7 +30,17 @@ public class Questions {
 	 * multChar("Hi-There") → "HHHiii---TTThhheeerrreee"
 	 */
 	public String multiChar(String input) {
-		return "";
+		char [] newString = new char[input.length()*3];
+		int counter = 0;
+		for (int i = 0; i < input.length(); i++) {
+			for (int j =0; j < 3; j++) {
+				newString[counter] = input.charAt(i);
+				counter ++;
+			}
+		}
+		
+		String str = new String(newString);
+		return str;
 	}
 
 	/**
@@ -38,7 +48,7 @@ public class Questions {
 	 * of "bread" in the given string, or return the empty string "" if there is not
 	 * 2 occurances of "bread". Ignore Case<br>
 	 * <br>
-	 * For Example: sandwichFilling("breadclivebread") → "evilc"<br>
+	 * Fr Example: sandwichFilling("breadclivebread") → "evilc"<br>
 	 * sandwichFilling("xxbreadfridgebreadyy") → "egdirf"<br>
 	 * sandwichFilling("xxBreadfridgeBReAdyy") → "egdirf"<br>
 	 * sandwichFilling("xxbreadyy") → "" sandwichFilling("xxbreADyy") → ""<br>
@@ -47,6 +57,33 @@ public class Questions {
 	 */
 
 	public String sandwichFilling(String sandwich) {
+		
+		String input = sandwich.toLowerCase();
+		
+		
+		int firstIndex = input.indexOf("bread") + 5; // first index between "bread"
+		int secondIndex = input.substring(firstIndex).indexOf("bread"); //index of "b" in bread
+		
+		String oldString = input.substring(firstIndex, secondIndex + firstIndex);
+		char [] oldStringArray = oldString.toCharArray();
+		char [] newArray = new char[oldStringArray.length];
+		
+		System.out.println(oldString);
+		
+		int counter = oldStringArray.length;
+		
+		System.out.println(counter);
+		System.out.println(oldStringArray.length);
+		
+		for (int i = 0; i < oldStringArray.length; i++) {
+			newArray[i] = oldStringArray[counter];
+			counter = counter -1;
+			System.out.println(counter);
+			System.out.println(i);
+		}
+		
+		System.out.println(Arrays.toString(newArray));
+		
 		return "";
 	}
 
@@ -83,6 +120,11 @@ public class Questions {
 	 * nMid("Chocolate", 1) → "Choclate"<br>
 	 */
 	public String nMid(String input, int n) {
+		// get length of string
+		// divide length by 2 to get middle value
+		// divide into 2 substrings based off middle value
+		// divide int by 2 with remainder
+		// remove that many letter off end of first and remainder
     	return "";
 	}
 
@@ -99,6 +141,9 @@ public class Questions {
 	 * endsJava("pythoniscool") → false <br>
 	 */
 	public boolean endsJava(String input) {
+		if (input.toLowerCase().endsWith("java")){
+			return true;
+		}
     	return false;
 	}
 
@@ -114,7 +159,28 @@ public class Questions {
 	 * HINT: "a" == "a" if false HINT: "a".equals("a") is true
 	 */
 	public int superBlock(String input) {
-    	return -1;
+		char[] newInput = input.toCharArray();
+		int biggest = 0;
+		int current = 1;
+		if (input.isEmpty()) {
+			return 0;
+		}
+		for (int i =1 ; i<newInput.length; i++) {
+			String str1 = String.valueOf(newInput[i]);
+			String str2 = String.valueOf(newInput[i-1]);
+			if (str1.equals(str2)) {
+				current = current + 1;
+			}
+			else { if (current > biggest) {
+					biggest = current;
+				}
+				current = 1;
+			}
+		}
+		if (current > biggest) {
+			biggest = current;
+		}
+    	return biggest;
 	}
 
 	/**
@@ -130,7 +196,13 @@ public class Questions {
 	 * HINT: String.toLowerCase
 	 */
 	public int amISearch(String sentence) {
-    	return -1;
+		sentence = sentence.toLowerCase();
+		int counter = 0;
+		while (sentence.contains(" am ")) {
+		counter ++;
+		sentence = sentence.substring(sentence.indexOf(" am ") + 4);
+		}
+    	return counter;
 	}
 
 	/**
@@ -217,7 +289,6 @@ public class Questions {
 			return false; 
 		} 
 		int i = index - 1;
-		System.out.println(word.charAt(i));
 			if (letter - (word.charAt(i)) == 0) {
 				return true; 
 			}
